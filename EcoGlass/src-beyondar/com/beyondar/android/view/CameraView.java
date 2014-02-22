@@ -81,9 +81,9 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback, C
 
 		configureCamera();
 
-		if (android.os.Build.VERSION.SDK_INT <= 10) {// Android 2.3.x or lower
+		//if (android.os.Build.VERSION.SDK_INT <= 10) {// Android 2.3.x or lower
 			mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-		}
+		//}
 	}
 
 	private void configureCamera() {
@@ -205,13 +205,16 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback, C
 
 		Camera.Parameters parameters = mCamera.getParameters();
 		int orientation = getCameraDisplayOrientation();
-		mCamera.setDisplayOrientation(orientation);
+		//mCamera.setDisplayOrientation(orientation);
 
 		stopPreviewCamera();
 
-		parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
-
-		parameters.setRotation(orientation);
+		//parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
+		// Hack for Google Glass
+		parameters.setPreviewSize(640, 360);
+		parameters.setPreviewFpsRange(30000, 30000);
+		
+		//parameters.setRotation(orientation);
 
 		// parameters.set("jpeg-quality", 70);
 		// parameters.setPictureSize(100, 100);
