@@ -13,7 +13,7 @@ public class MainActivity extends Activity implements EventCallbackUDP {
 	private UDPReceiver udpReceiver = new UDPReceiver(30002, this);
 	
 	//zaska
-	public static UDPData udpData;
+	public static UDPData udpData = new UDPData();
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +22,15 @@ public class MainActivity extends Activity implements EventCallbackUDP {
         
         udpReceiver.start();
     }
+    
+    @Override
+    protected void onDestroy() {
+    	udpReceiver.Terminate();
+    	super.onDestroy();
+    }
 
 	@Override
 	public void EventReceivedUDP(UDPData udpData) {
 		Log.i(TAG, "Data received: " + udpData.SpeedWheelFront + " " + udpData.SpeedWheelFront);
-		MainActivity.udpData = udpData;
 	}    
 }

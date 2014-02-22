@@ -50,4 +50,47 @@ public class UDPData {
     uShort  HighVoltageStorageCurrent;
 
     uByte  ECOPoints;
+    
+    public UDPData() {
+    	Magic = new uInt();
+    	Version = new uByte();
+    	Alive = new uByte();
+    	VehicleType = new uByte();
+    	MileageTotal = new uInt();
+    	SpeedWheelFront = new uShort();
+    	SpeedWheelRear = new uShort();
+    	Temperature = new MutableShort();
+    	
+    	RockerSwitchLeftDown = new uByte();
+    	RockerSwitchLeftUp = new uByte();
+    	RockerSwitchRightDown = new uByte();
+    	RockerSwitchRightUp = new uByte();
+    	PushButtonLeftHand = new uByte();
+    	PushButtonRightHand = new uByte();
+    	CruiseControlAccelerate = new uByte();
+    	CruiseControlDecelerator = new uByte();
+    	CruiseControlOn = new uByte();
+    	IndicatorSwitchLeft = new uByte();
+    	IndicatorSwitchRight = new uByte();
+    	IndicatorSwitchReset = new uByte();
+    	Horn = new uByte();
+    	HighBeam = new uByte();
+    	MMCLeft = new uByte();
+    	MMCRight = new uByte();
+    	MMCPosition = new uByte();
+    	ReadinessDriving = new uByte();
+
+    	ChargingCondition = new uByte();
+    	ChargingDurationExpected = new uShort();
+    	ChargingWirePluggedIn = new uByte();
+    	StateOfCharge = new uByte();
+    	Range = new uByte();
+    	
+    	EnergyDischarged = new uShort();
+    	EnergyChargedByRecuperation = new uShort();
+    	HighVoltageStorageCurrent = new uShort();
+    	HighVoltageStorageVoltage = new uShort();
+    	
+    	ECOPoints = new uByte();
+	}
 }
