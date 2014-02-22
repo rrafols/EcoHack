@@ -61,11 +61,19 @@ public class MainActivity extends Activity implements EventCallbackUDP {
 		else rechargePoints = 5;
 		
 		double ecoPointsF = (consumptionWeight * dischargePoints + rechargeWeight * rechargePoints) / 2.0;
-		long ecoPoints = Math.round(ecoPointsF);
-		Log.i(TAG, "EcoPoints: " + discharge + " (" + dischargePoints + "), " + recharge + " (" + rechargePoints + ") " + ecoPointsF + "(" + ecoPoints + ") vs " + udpData.ECOPoints.getValue());
+		long ecoPointsR = Math.round(ecoPointsF);
+		Log.i(TAG, "EcoPoints: " + discharge + " (" + dischargePoints + "), " + recharge + " (" + rechargePoints + ") " + ecoPointsF + "(" + ecoPointsR + ") vs " + udpData.ECOPoints.getValue());
 		
 		
-//		int 
+		int ecoPoints = udpData.ECOPoints.getValue();
+		if(ecoPoints != lastEcoPoints) {
+			int delta = ecoPoints - ecoPoints;
+			accEcoPoints += delta;
+			
+			if(ecoPointsListener != null) {
+				ecoPointsListener.ecoPointsChange(delta);
+			}
+		}
 	}
 
 	@Override
@@ -80,7 +88,7 @@ public class MainActivity extends Activity implements EventCallbackUDP {
 	@Override
 	public void sessionStopped() {
 		if (ecoPointsListener != null) {
-			ecoPointsListener.sessionStopped(accEcoPoints);
+			ecoPointsListener.sessionStopped((accEcoPoints > 0) ? accEcoPoints : 0);
 		}
 	}    
 }
