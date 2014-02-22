@@ -22,7 +22,7 @@ public class UDPReceiver extends Thread {
 
     public void Terminate() {
         this.m_Terminate = true;
-        m_DatagramSocket.close();
+        if(m_DatagramSocket != null) m_DatagramSocket.close();
     }
 
     @Override
@@ -32,7 +32,9 @@ public class UDPReceiver extends Thread {
         while (!m_Terminate) {
 
             try {
-                m_DatagramSocket = new DatagramSocket(m_Port);
+                if(m_DatagramSocket == null) {
+                	m_DatagramSocket = new DatagramSocket(m_Port);
+                }
 
                 byte[] buffer = new byte[128];
 
@@ -103,8 +105,8 @@ public class UDPReceiver extends Thread {
                 }
             } catch (Exception e) {
                 Log.d("BMW Motorrad", e.toString());
+                e.printStackTrace();
             }
-
         }
     }
 }

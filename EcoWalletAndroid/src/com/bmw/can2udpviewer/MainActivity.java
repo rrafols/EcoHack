@@ -11,6 +11,7 @@ public class MainActivity extends Activity implements EventCallbackUDP {
 	public static final String TAG = "HackTheRide";
 	
 	private UDPReceiver udpReceiver = new UDPReceiver(30002, this);
+	private int ecoPoints = -1;
 	
 	//zaska
 	public static UDPData udpData = new UDPData();
@@ -31,6 +32,12 @@ public class MainActivity extends Activity implements EventCallbackUDP {
 
 	@Override
 	public void EventReceivedUDP(UDPData udpData) {
-		Log.i(TAG, "Data received: " + udpData.SpeedWheelFront + " " + udpData.SpeedWheelFront);
+//		Log.i(TAG, "Data received: " + udpData.Alive.getValue() + " :: " + udpData.ECOPoints.getValue() + " :: " + ((int) udpData.SpeedWheelFront.getValue()) + " " + ((int) udpData.SpeedWheelFront.getValue()));
+		Log.i(TAG, "Data received: " + udpData.Range.getValue() + " :: " + (((float) udpData.StateOfCharge.getValue()) / 2.54) + " vrodes: " + ((int) udpData.SpeedWheelFront.getValue()) + " " + ((int) udpData.SpeedWheelFront.getValue()));
+		int currentEco = udpData.ECOPoints.getValue();
+		if(currentEco != ecoPoints) {
+			Log.i(TAG, "EcoPoints Change: " + currentEco);
+			ecoPoints = currentEco;
+		}
 	}    
 }
