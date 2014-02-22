@@ -11,7 +11,9 @@ public class MainActivity extends Activity implements EventCallbackUDP {
 	public static final String TAG = "HackTheRide";
 	
 	private UDPReceiver udpReceiver = new UDPReceiver(30002, this);
-	private int ecoPoints = -1;
+	private EcoPointsChangeListener ecoPointsListener;
+	private int lastEcoPoints = 0;
+	private int accEcoPoints = 0;
 	
 	//zaska
 	public static UDPData udpData = new UDPData();
@@ -24,6 +26,10 @@ public class MainActivity extends Activity implements EventCallbackUDP {
         udpReceiver.start();
     }
     
+    public void setEcoPointsChangeListener(EcoPointsChangeListener listener) {
+    	this.ecoPointsListener = listener;
+    }
+    
     @Override
     protected void onDestroy() {
     	udpReceiver.Terminate();
@@ -32,12 +38,49 @@ public class MainActivity extends Activity implements EventCallbackUDP {
 
 	@Override
 	public void EventReceivedUDP(UDPData udpData) {
-//		Log.i(TAG, "Data received: " + udpData.Alive.getValue() + " :: " + udpData.ECOPoints.getValue() + " :: " + ((int) udpData.SpeedWheelFront.getValue()) + " " + ((int) udpData.SpeedWheelFront.getValue()));
-		Log.i(TAG, "Data received: " + udpData.Range.getValue() + " :: " + (((float) udpData.StateOfCharge.getValue()) / 2.54) + " vrodes: " + ((int) udpData.SpeedWheelFront.getValue()) + " " + ((int) udpData.SpeedWheelFront.getValue()));
-		int currentEco = udpData.ECOPoints.getValue();
-		if(currentEco != ecoPoints) {
-			Log.i(TAG, "EcoPoints Change: " + currentEco);
-			ecoPoints = currentEco;
+		double energyRechargeFactor = 0.00015259;
+		double energyDischargeFactor = 0.00015259;
+		double consumptionWeight = 0.5;
+		double rechargeWeight = 0.5;
+		
+		double discharge = ((double) udpData.EnergyDischarged.getValue()) * energyDischargeFactor;
+		double recharge = ((double) udpData.EnergyChargedByRecuperation.getValue()) * energyRechargeFactor;
+		
+		double dischargePoints = 0;
+		if (discharge >= 8.0) dischargePoints = 1;
+		else if (discharge >= 7.0) dischargePoints = 2;
+		else if (discharge >= 6.0) dischargePoints = 3;
+		else if (discharge >= 5.0) dischargePoints = 4;
+		else dischargePoints = 5;
+		
+		double rechargePoints = 0;
+		if (recharge <= 0.5) rechargePoints = 1;
+		else if (recharge <= 1.0) rechargePoints = 2;
+		else if (recharge <= 1.5) rechargePoints = 3;
+		else if (recharge <= 2.0) rechargePoints = 4;
+		else rechargePoints = 5;
+		
+		double ecoPointsF = (consumptionWeight * dischargePoints + rechargeWeight * rechargePoints) / 2.0;
+		long ecoPoints = Math.round(ecoPointsF);
+		Log.i(TAG, "EcoPoints: " + discharge + " (" + dischargePoints + "), " + recharge + " (" + rechargePoints + ") " + ecoPointsF + "(" + ecoPoints + ") vs " + udpData.ECOPoints.getValue());
+		
+		
+//		int 
+	}
+
+	@Override
+	public void sessionStarted() {
+		lastEcoPoints = -1;
+		
+		if (ecoPointsListener != null) {
+			ecoPointsListener.sessionStarted();
+		}
+	}
+
+	@Override
+	public void sessionStopped() {
+		if (ecoPointsListener != null) {
+			ecoPointsListener.sessionStopped(accEcoPoints);
 		}
 	}    
 }

@@ -12,10 +12,12 @@ public class UDPReceiver extends Thread {
     private Boolean m_Terminate = false;
     private EventCallbackUDP m_EventCallback;
     private DatagramSocket m_DatagramSocket = null;
+    private boolean sessionStarted = false;
 
 
     public UDPReceiver(int Port, EventCallbackUDP eventCallback) {
         super();
+        
         m_Port = Port;
         m_EventCallback = eventCallback;
     }
@@ -41,7 +43,6 @@ public class UDPReceiver extends Thread {
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
                 while (true) {
-
                     m_DatagramSocket.receive(packet);
 
                     if (packet.getLength() == 50) {
@@ -106,6 +107,8 @@ public class UDPReceiver extends Thread {
             } catch (Exception e) {
                 Log.d("BMW Motorrad", e.toString());
                 e.printStackTrace();
+                sessionStarted = false;
+                m_EventCallback.sessionStopped();
             }
         }
     }
