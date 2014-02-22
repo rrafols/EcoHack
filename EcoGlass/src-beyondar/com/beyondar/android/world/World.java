@@ -40,7 +40,7 @@ public class World implements Modulable<WorldModule> {
 	 * The maximum distance that the object will be displayed (meters) in the AR
 	 * view
 	 */
-	public static final int MAX_AR_VIEW_DISTANCE = 1000;
+	public static final int MAX_AR_VIEW_DISTANCE = 50000;
 
 	public static final int LIST_TYPE_DEFAULT = 0;
 

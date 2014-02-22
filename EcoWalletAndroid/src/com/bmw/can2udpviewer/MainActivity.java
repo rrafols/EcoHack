@@ -3,11 +3,12 @@ package com.bmw.can2udpviewer;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.hacktheride.ecowallet.R;
 
 
-public class MainActivity extends Activity implements EventCallbackUDP {
+public class MainActivity extends Activity implements EventCallbackUDP, EcoPointsChangeListener {
 	public static final String TAG = "HackTheRide";
 	private static final int CHARGING_CONDITION_CHARGING = 1;
 	private static final int CHARGING_CONDITION_NOT_CHARGING = 2;
@@ -101,13 +102,34 @@ public class MainActivity extends Activity implements EventCallbackUDP {
 		sessionStarted = true;
 	}
 
-	
-	
 	private void stopSession() {
 		if (ecoPointsListener != null) {
 			ecoPointsListener.sessionStopped((accEcoPoints > 0) ? accEcoPoints : 0);
 		}
-		
 		sessionStarted = false;
+	}
+
+	@Override
+	public void sessionStopped(int sessionTotal) {
+		// TODO Comunicar al servidor
+		
+		// UI global ecoPoints score
+		TextView totalEcopints = (TextView) findViewById(R.id.totalPoints);
+		int lastTotalScore = Integer.parseInt((String) totalEcopints.getText());
+		totalEcopints.setText(Integer.toString(lastTotalScore + sessionTotal));
+		
+		// UI last ride update
+		TextView lastRide = (TextView) findViewById(R.id.lastRidePunctuations);
+		if(sessionTotal == 0)
+			lastRide.setTextColor(getResources().getColor(android.R.color.holo_orange_light));
+		else
+			lastRide.setTextColor(getResources().getColor(android.R.color.holo_green_light));
+		lastRide.setText(Integer.toString(sessionTotal));
+	}
+
+	@Override
+	public void ecoPointsChange(int delta) {
+		// TODO Auto-generated method stub
+		// TODO Modificar la UI		
 	}
 }
