@@ -6,7 +6,6 @@ import java.nio.ByteBuffer;
 
 import android.util.Log;
 
-import com.hacktheride.demoname.MainActivity;
 
 public class UDPReceiver extends Thread {
     private int m_Port;
