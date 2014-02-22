@@ -9,11 +9,14 @@ import com.hacktheride.ecowallet.R;
 
 public class MainActivity extends Activity implements EventCallbackUDP {
 	public static final String TAG = "HackTheRide";
+	private static final int CHARGING_CONDITION_CHARGING = 1;
+	private static final int CHARGING_CONDITION_NOT_CHARGING = 2;
 	
 	private UDPReceiver udpReceiver = new UDPReceiver(30002, this);
 	private EcoPointsChangeListener ecoPointsListener;
 	private int lastEcoPoints = 0;
 	private int accEcoPoints = 0;
+	private boolean sessionStarted = false;
 	
 	//zaska
 	public static UDPData udpData = new UDPData();
@@ -64,7 +67,6 @@ public class MainActivity extends Activity implements EventCallbackUDP {
 		long ecoPointsR = Math.round(ecoPointsF);
 		Log.i(TAG, "EcoPoints: " + discharge + " (" + dischargePoints + "), " + recharge + " (" + rechargePoints + ") " + ecoPointsF + "(" + ecoPointsR + ") vs " + udpData.ECOPoints.getValue());
 		
-		
 		int ecoPoints = udpData.ECOPoints.getValue();
 		if(ecoPoints != lastEcoPoints) {
 			int delta = ecoPoints - ecoPoints;
@@ -74,8 +76,20 @@ public class MainActivity extends Activity implements EventCallbackUDP {
 				ecoPointsListener.ecoPointsChange(delta);
 			}
 		}
+		
+		int chargingCondition = udpData.ChargingCondition.getValue();
+		
+		// if we're charging the bike and session has been started, we stop the session
+		if(chargingCondition == CHARGING_CONDITION_CHARGING && sessionStarted) {
+			sessionStopped();
+		}
 	}
-
+	
+	@Override
+	public void sessionStopped() {
+		stopSession();
+	}
+	
 	@Override
 	public void sessionStarted() {
 		lastEcoPoints = -1;
@@ -83,12 +97,17 @@ public class MainActivity extends Activity implements EventCallbackUDP {
 		if (ecoPointsListener != null) {
 			ecoPointsListener.sessionStarted();
 		}
+		
+		sessionStarted = true;
 	}
 
-	@Override
-	public void sessionStopped() {
+	
+	
+	private void stopSession() {
 		if (ecoPointsListener != null) {
 			ecoPointsListener.sessionStopped((accEcoPoints > 0) ? accEcoPoints : 0);
 		}
-	}    
+		
+		sessionStarted = false;
+	}
 }

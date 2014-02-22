@@ -12,9 +12,7 @@ public class UDPReceiver extends Thread {
     private Boolean m_Terminate = false;
     private EventCallbackUDP m_EventCallback;
     private DatagramSocket m_DatagramSocket = null;
-    private boolean sessionStarted = false;
-
-
+    
     public UDPReceiver(int Port, EventCallbackUDP eventCallback) {
         super();
         
@@ -107,7 +105,6 @@ public class UDPReceiver extends Thread {
             } catch (Exception e) {
                 Log.d("BMW Motorrad", e.toString());
                 e.printStackTrace();
-                sessionStarted = false;
                 m_EventCallback.sessionStopped();
             }
         }
