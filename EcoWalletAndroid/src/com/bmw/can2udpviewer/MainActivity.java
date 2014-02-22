@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.hacktheride.demoname.R;
-import com.hacktheride.demoname.R.layout;
+import com.hacktheride.ecowallet.R;
+
 
 public class MainActivity extends Activity implements EventCallbackUDP {
 	public static final String TAG = "HackTheRide";
