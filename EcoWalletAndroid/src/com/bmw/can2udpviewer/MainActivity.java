@@ -24,6 +24,7 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 	private int accEcoPoints = 0;
 	private ArrayList<Integer> mHistoricEcoPointsValues = new ArrayList<Integer>();
 	private ArrayList<String> mHistoricEcoPointsDates = new ArrayList<String>();
+	private ArrayList<String> mHistoricEcoPointsOrigins = new ArrayList<String>();
 	private Activity mThisActivity;
 
 	private boolean sessionStarted = false;
@@ -40,14 +41,19 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 		// Hardcoded historic EcoPoints
 		mHistoricEcoPointsValues.add(Integer.valueOf(5));
 		mHistoricEcoPointsDates.add("02/12/2014 15:00");
-		mHistoricEcoPointsValues.add(Integer.valueOf(2));
+		mHistoricEcoPointsOrigins.add("Moto");
+		mHistoricEcoPointsValues.add(Integer.valueOf(-2));
 		mHistoricEcoPointsDates.add("02/12/2014 17:43");
+		mHistoricEcoPointsOrigins.add("Moto2");
 		mHistoricEcoPointsValues.add(Integer.valueOf(3));
 		mHistoricEcoPointsDates.add("02/13/2014 09:03");
+		mHistoricEcoPointsOrigins.add("Moto3");
 		mHistoricEcoPointsValues.add(Integer.valueOf(0));
 		mHistoricEcoPointsDates.add("02/14/2014 14:12");
+		mHistoricEcoPointsOrigins.add("Moto4");
 		mHistoricEcoPointsValues.add(Integer.valueOf(1));
 		mHistoricEcoPointsDates.add("02/14/2014 15:00");
+		mHistoricEcoPointsOrigins.add("Moto5");
 
 		mThisActivity = this;
 		
@@ -58,8 +64,9 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(mThisActivity, HistoricEcoPoints.class);
-				intent.putIntegerArrayListExtra("HistoricPointsValue", mHistoricEcoPointsValues);
-				intent.putStringArrayListExtra("HistoricPointsDates", mHistoricEcoPointsDates);
+				intent.putIntegerArrayListExtra("TransactionAmounts", mHistoricEcoPointsValues);
+				intent.putStringArrayListExtra("TransactionDates", mHistoricEcoPointsDates);
+				intent.putStringArrayListExtra("TransactionOrigins", mHistoricEcoPointsOrigins);
 				mThisActivity.startActivity(intent);
 			}
 		});
