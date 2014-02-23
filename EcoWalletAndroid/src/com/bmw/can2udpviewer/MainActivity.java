@@ -42,6 +42,7 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 
 	@Override
 	public void EventReceivedUDP(UDPData udpData) {
+		/*
 		double energyRechargeFactor = 0.00015259;
 		double energyDischargeFactor = 0.00015259;
 		double consumptionWeight = 0.5;
@@ -67,22 +68,25 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 		double ecoPointsF = (consumptionWeight * dischargePoints + rechargeWeight * rechargePoints) / 2.0;
 		long ecoPointsR = Math.round(ecoPointsF);
 		Log.i(TAG, "EcoPoints: " + discharge + " (" + dischargePoints + "), " + recharge + " (" + rechargePoints + ") " + ecoPointsF + "(" + ecoPointsR + ") vs " + udpData.ECOPoints.getValue());
+		*/
 		
-		int ecoPoints = udpData.ECOPoints.getValue();
-		if(ecoPoints != lastEcoPoints) {
-			int delta = ecoPoints - ecoPoints;
-			accEcoPoints += delta;
-			
-			if(ecoPointsListener != null) {
-				ecoPointsListener.ecoPointsChange(delta);
+		if(sessionStarted) {
+			int ecoPoints = udpData.ECOPoints.getValue();
+			if(ecoPoints != lastEcoPoints) {
+				int delta = ecoPoints - ecoPoints;
+				accEcoPoints += delta;
+				
+				if(ecoPointsListener != null) {
+					ecoPointsListener.ecoPointsChange(delta);
+				}
 			}
-		}
-		
-		int chargingCondition = udpData.ChargingCondition.getValue();
-		
-		// if we're charging the bike and session has been started, we stop the session
-		if(chargingCondition == CHARGING_CONDITION_CHARGING && sessionStarted) {
-			sessionStopped();
+			
+			int chargingCondition = udpData.ChargingCondition.getValue();
+			
+			// if we're charging the bike and session has been started, we stop the session
+			if(chargingCondition == CHARGING_CONDITION_CHARGING) {
+				stopSession();
+			}
 		}
 	}
 	
