@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.hacktheride.ecowallet.R;
@@ -58,7 +59,7 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 		mThisActivity = this;
 		
 		// Historic button listener
-		Button historic = (Button) findViewById(R.id.botonHistorico);
+		ImageButton historic = (ImageButton) findViewById(R.id.historicButton);
 		historic.setOnClickListener(new OnClickListener() {
 
 			@Override
