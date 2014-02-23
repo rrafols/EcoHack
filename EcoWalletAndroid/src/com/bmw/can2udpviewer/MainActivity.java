@@ -1,6 +1,7 @@
 package com.bmw.can2udpviewer;
 
 import java.util.ArrayList;
+import java.util.Currency;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,6 +19,7 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 
 	private static final int CHARGING_CONDITION_CHARGING = 1;
 	private static final int CHARGING_CONDITION_NOT_CHARGING = 2;
+	private int realEcoPoints = 101;
 	
 	private UDPReceiver udpReceiver = new UDPReceiver(30002, this);
 	private EcoPointsChangeListener ecoPointsListener;
@@ -79,13 +81,19 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(mThisActivity, PaymentActivity.class);
-				TextView balance = (TextView) mThisActivity.findViewById(R.id.currentBalance);
-				intent.putExtra("Balance", Integer.parseInt(balance.getText().toString()));
+				intent.putExtra("Balance", realEcoPoints);
 				mThisActivity.startActivity(intent);
 			}
 		});
 	}
-
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		((TextView) findViewById(R.id.currentBalance)).setText("" + realEcoPoints);
+	}
+	
 	public void setEcoPointsChangeListener(EcoPointsChangeListener listener) {
 		this.ecoPointsListener = listener;
 	}
