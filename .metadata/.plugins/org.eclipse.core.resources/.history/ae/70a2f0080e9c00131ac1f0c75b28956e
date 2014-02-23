@@ -1,0 +1,19 @@
+package bcn.glassteam.ecoglass.EcoPoints;
+
+public class EcoPointsReceiver {
+
+	private IEcoPointsListener mListener;
+	
+	public boolean startReceiving() {
+		return true;
+	}
+	
+	public void setEcoPointsListener(IEcoPointsListener listener) {
+		mListener = listener;
+	}
+	
+	public boolean stopReceiving() {
+		return true;
+	}
+	
+}

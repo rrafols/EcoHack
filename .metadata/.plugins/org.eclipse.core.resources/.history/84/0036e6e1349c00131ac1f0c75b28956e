@@ -1,0 +1,117 @@
+package bcn.glassteam.ecoglass;
+
+import java.util.Random;
+
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import bcn.glassteam.ecoglass.EcoPoints.EcoPointsReceiver;
+import bcn.glassteam.ecoglass.EcoPoints.IEcoPointsListener;
+
+import com.beyondar.android.fragment.BeyondarFragmentSupport;
+import com.beyondar.android.world.GeoObject;
+import com.beyondar.android.world.World;
+import com.google.android.glass.app.Card;
+import com.google.android.glass.app.Card.ImageLayout;
+
+public class MainActivity extends FragmentActivity implements IEcoPointsListener {
+	
+	private final static float ECO_CARD_OPACITY = 0.85f;
+	
+	private int mDriveEfficiency = 50;
+	
+	private FrameLayout mRootContainer;
+	private BeyondarFragmentSupport mBeyondarFragment;
+	private Card mEcoCard;
+	private View mEcoCardView;
+	private World mWorld;
+	private EcoPointsReceiver mEcoPointsReceiver;
+	private boolean isEcoCardShowing;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        setContentView(R.layout.main_layout);
+        
+        mRootContainer = (FrameLayout) findViewById(R.id.root_container);
+        mBeyondarFragment = (BeyondarFragmentSupport) getSupportFragmentManager().findFragmentById(R.id.beyondarFragment);
+        
+        mWorld = new World(this);
+        mWorld.setGeoPosition(41.386995, 2.171488);
+        mWorld.setDefaultBitmap(R.drawable.ic_launcher);
+        
+        // Fake Eco-stores
+        GeoObject obj1 = new GeoObject();
+        obj1.setGeoPosition(41.387003, 2.171212);
+        obj1.setImageResource(R.drawable.pointer);
+        mWorld.addBeyondarObject(obj1);
+        
+        GeoObject obj2 = new GeoObject();
+        obj2.setGeoPosition(41.386912, 2.171370);
+        obj2.setImageResource(R.drawable.pointer);
+        mWorld.addBeyondarObject(obj2);
+        
+        mBeyondarFragment.setWorld(mWorld);
+        
+        mEcoCard = new Card(this);
+        mEcoCard.setImageLayout(ImageLayout.FULL);
+        mEcoCard.addImage(R.drawable.leaf_bg);
+        isEcoCardShowing = true;
+        updateEcoCard();
+        
+        mEcoPointsReceiver = new EcoPointsReceiver(this);
+        mEcoPointsReceiver.setEcoPointsListener(this);
+        mEcoPointsReceiver.startReceiving();
+    }
+    
+    @Override
+	protected void onPause() {
+		mEcoPointsReceiver.stopReceiving();
+		super.onPause();
+	}
+    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+    		toggleEcoCard();
+            return true;
+        }
+    	
+    	return super.onKeyDown(keyCode, event);
+    }
+    
+    private void toggleEcoCard() {
+    	if (isEcoCardShowing) {
+    		mEcoCardView.setVisibility(View.GONE);
+    		isEcoCardShowing = false;
+    	} else {
+    		mEcoCardView.setVisibility(View.VISIBLE);
+    		isEcoCardShowing = true;
+    	}
+    }
+    
+    private void updateEcoCard() {
+    	mRootContainer.removeView(mEcoCardView);
+    	mEcoCard.setText("Driving efficency: " + mDriveEfficiency + "%");
+    	mEcoCardView = mEcoCard.toView();
+        mEcoCardView.setVisibility(isEcoCardShowing ? View.VISIBLE : View.GONE);
+        mEcoCardView.setAlpha(ECO_CARD_OPACITY);
+        mRootContainer.addView(mEcoCardView);
+    }
+    
+	@Override
+	public void onEcoPointsUpdated(int points) {
+		// Randomly choose between positive or negative points
+		if (new Random().nextBoolean()) {
+			points *= -1;
+		}
+		
+		if (mDriveEfficiency + points <= 100)
+			mDriveEfficiency += points;
+		updateEcoCard();
+	}
+}

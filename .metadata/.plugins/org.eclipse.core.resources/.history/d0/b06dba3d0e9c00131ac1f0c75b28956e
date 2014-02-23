@@ -1,0 +1,26 @@
+package bcn.glassteam.ecoglass.EcoPoints;
+
+public class EcoPointsReceiver {
+
+	private IEcoPointsListener mListener;
+	
+	public boolean startReceiving() {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+			}
+		}).start();
+		
+		return true;
+	}
+	
+	public void setEcoPointsListener(IEcoPointsListener listener) {
+		mListener = listener;
+	}
+	
+	public boolean stopReceiving() {
+		return true;
+	}
+}

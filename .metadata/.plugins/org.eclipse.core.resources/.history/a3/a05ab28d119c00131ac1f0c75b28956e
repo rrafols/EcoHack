@@ -1,0 +1,5 @@
+package bcn.glassteam.ecoglass.EcoPoints;
+
+public interface IEcoPointsListener {
+
+}

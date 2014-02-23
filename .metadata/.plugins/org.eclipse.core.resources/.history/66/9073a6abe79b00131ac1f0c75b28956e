@@ -1,0 +1,60 @@
+package bcn.glassteam.ecoglass;
+
+import java.util.ArrayList;
+
+import android.app.Activity;
+import android.os.Bundle;
+import bcn.glassteam.ecoglass.adapters.MainTimelineAdapter;
+
+import com.google.android.glass.app.Card;
+import com.google.android.glass.widget.CardScrollView;
+
+public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        MainTimelineAdapter adapter = new MainTimelineAdapter();
+        adapter.setCards(createMainTimelineCards());
+        
+        CardScrollView mCardScroll = new CardScrollView(this);
+        mCardScroll.setAdapter(adapter);
+        mCardScroll.activate();
+        openOptionsMenu();
+        
+        //setContentView(R.layout.activity_main);
+        setContentView(mCardScroll);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    
+    private ArrayList<Card> createMainTimelineCards() {
+    	ArrayList<Card> cards = new ArrayList<Card>();
+    	
+    	Card card;
+    	
+    	card = new Card(this);
+    	card.setText("This card has a footer.");
+        card.setFootnote("I'm the footer!");
+    	cards.add(card);
+    	
+    	card = new Card(this);
+    	card.setText("This card has a footer.");
+        card.setFootnote("I'm the footer 2!");
+    	cards.add(card);
+    	
+    	card = new Card(this);
+    	card.setText("This card has a footer.");
+        card.setFootnote("I'm the footer 3!");
+    	cards.add(card);
+    	
+    	return cards;
+    }
+    
+}

@@ -266,3 +266,6 @@ org.eclipse.core.internal.resources.ResourceException: Resource '/google-play-se
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
 !SUBENTRY 1 org.eclipse.core.resources 4 368 2014-02-22 17:48:43.497
 !MESSAGE Resource '/google-play-services_lib/res' does not exist.
+
+!ENTRY org.eclipse.ui 4 4 2014-02-22 22:51:19.906
+!MESSAGE Referenced part does not exist yet: org.eclipse.ui.views.ProblemView.

@@ -1,0 +1,24 @@
+package bcn.glassteam.ecoglass.fragments;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.beyondar.android.fragment.BeyondarFragmentSupport;
+
+public class ARFragment extends BeyondarFragmentSupport {
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		System.out.println("ON RESUME !!!!!!!!!!!!!!!!!!!!!!!!!!");
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		System.out.println("ON PAUSE !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	}
+	
+}

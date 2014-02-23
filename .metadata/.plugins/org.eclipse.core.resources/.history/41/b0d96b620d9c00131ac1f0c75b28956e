@@ -1,0 +1,13 @@
+package bcn.glassteam.ecoglass.EcoPoints;
+
+public class EcoPointsReceiver {
+
+	public boolean startReceiving() {
+		return true;
+	}
+	
+	public boolean stopReceiving() {
+		return true;
+	}
+	
+}

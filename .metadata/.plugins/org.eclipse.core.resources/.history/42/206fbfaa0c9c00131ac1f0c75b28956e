@@ -1,0 +1,44 @@
+package bcn.glassteam.ecoglass.adapters;
+
+import java.util.ArrayList;
+
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.google.android.glass.widget.CardScrollAdapter;
+
+public class MainTimelineAdapter extends CardScrollAdapter {
+
+	private ArrayList<View> mCards = null;
+	
+	public void setViews(ArrayList<View> cards) {
+		mCards = cards;
+	}
+	
+	@Override
+	public int findIdPosition(Object obj) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int findItemPosition(Object item) {
+		return mCards.indexOf(item);
+	}
+
+	@Override
+	public int getCount() {
+		return mCards.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return mCards.get(position);
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		return (View) getItem(position);
+	}
+
+}

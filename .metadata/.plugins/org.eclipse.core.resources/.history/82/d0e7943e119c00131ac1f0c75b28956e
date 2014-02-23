@@ -1,0 +1,40 @@
+package bcn.glassteam.ecoglass.EcoPoints;
+
+import android.content.Context;
+import android.os.Handler;
+
+
+public class EcoPointsReceiver {
+
+	private Handler mMainThreadHandler;
+	private IEcoPointsListener mListener;
+	private Runnable fakeReceiver;
+	
+	public EcoPointsReceiver(Context context) {
+		mMainThreadHandler = new Handler(context.getMainLooper());
+		fakeReceiver = createFakeReceiver();
+	}
+	
+	public boolean startReceiving() {
+		mMainThreadHandler.post(fakeReceiver);
+		return true;
+	}
+	
+	public void setEcoPointsListener(IEcoPointsListener listener) {
+		mListener = listener;
+	}
+	
+	public boolean stopReceiving() {
+		mMainThreadHandler.removeCallbacks(fakeReceiver);
+		return true;
+	}
+	
+	private Runnable createFakeReceiver() {
+		return new Runnable() {
+			@Override
+			public void run() {
+				
+			}
+		};
+	}
+}

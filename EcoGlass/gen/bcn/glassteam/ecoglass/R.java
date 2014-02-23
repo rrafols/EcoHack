@@ -219,13 +219,16 @@ containing a value of this type.
         public static final int ic_plusone_small_off_client=0x7f02001a;
         public static final int ic_plusone_standard_off_client=0x7f02001b;
         public static final int ic_plusone_tall_off_client=0x7f02001c;
+        public static final int leaf_bg=0x7f02001d;
+        public static final int pointer=0x7f02001e;
     }
     public static final class id {
-        public static final int action_settings=0x7f060006;
-        public static final int beyondarFragment=0x7f060005;
+        public static final int action_settings=0x7f060007;
+        public static final int beyondarFragment=0x7f060006;
         public static final int hybrid=0x7f060004;
         public static final int none=0x7f060000;
         public static final int normal=0x7f060001;
+        public static final int root_container=0x7f060005;
         public static final int satellite=0x7f060002;
         public static final int terrain=0x7f060003;
     }

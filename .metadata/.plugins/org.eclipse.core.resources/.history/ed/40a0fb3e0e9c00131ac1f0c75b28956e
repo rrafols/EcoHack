@@ -1,0 +1,28 @@
+package bcn.glassteam.ecoglass.EcoPoints;
+
+import com.google.android.gms.drive.internal.GetMetadataRequest;
+
+public class EcoPointsReceiver {
+
+	private IEcoPointsListener mListener;
+	
+	public boolean startReceiving() {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+			}
+		}).start();
+		
+		return true;
+	}
+	
+	public void setListener(IEcoPointsListener listener) {
+		mListener = listener;
+	}
+	
+	public boolean stopReceiving() {
+		return true;
+	}
+}

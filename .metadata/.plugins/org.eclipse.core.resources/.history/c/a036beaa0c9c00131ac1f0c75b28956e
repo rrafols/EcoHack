@@ -1,0 +1,7 @@
+package bcn.glassteam.ecoglass.fragments;
+
+import com.beyondar.android.fragment.BeyondarFragmentSupport;
+
+public class ARFragment extends BeyondarFragmentSupport {
+
+}

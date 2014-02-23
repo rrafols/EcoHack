@@ -1,0 +1,87 @@
+package bcn.glassteam.ecoglass;
+
+import java.util.ArrayList;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.View;
+import bcn.glassteam.ecoglass.adapters.MainTimelineAdapter;
+
+import com.beyondar.android.fragment.BeyondarFragmentSupport;
+import com.beyondar.android.world.GeoObject;
+import com.beyondar.android.world.World;
+import com.google.android.glass.app.Card;
+import com.google.android.glass.widget.CardScrollView;
+
+public class MainActivity extends FragmentActivity {
+	
+	private BeyondarFragmentSupport mBeyondarFragment;
+	private World mWorld;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        LayoutInflater li = getLayoutInflater();
+        //mBeyondarFragment = (BeyondarFragmentSupport) li.inflate(R.layout.activity_main, null).findViewById(R.id.beyondarFragment);
+        View fragmentHolder = li.inflate(R.layout.activity_main, null).findViewById(R.id.beyondarFragmentHolder);
+        
+        
+        //setContentView(R.layout.activity_main);
+		mBeyondarFragment = new BeyondarFragmentSupport();
+		
+        mWorld = new World(this);
+        mWorld.setGeoPosition(41.386935, 2.171748);
+        
+        GeoObject mGeoObject = new GeoObject(1l);
+		mGeoObject.setGeoPosition(41.223102, 1.733443);
+		mGeoObject.setImageResource(R.drawable.ic_launcher);
+		mGeoObject.setName("Test");
+        
+		mWorld.addBeyondarObject(mGeoObject);
+		mBeyondarFragment.setWorld(mWorld);
+		
+//        MainTimelineAdapter adapter = new MainTimelineAdapter();
+//        adapter.setViews(createMainTimelineCards());
+//        
+//        CardScrollView mCardScroll = new CardScrollView(this);
+//        mCardScroll.setAdapter(adapter);
+//        mCardScroll.activate();
+//        
+//        setContentView(mCardScroll);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    
+    private ArrayList<View> createMainTimelineCards() {
+    	ArrayList<View> cards = new ArrayList<View>();
+    	
+    	Card card;
+    	
+    	card = new Card(this);
+    	card.setText("This card has a footer.");
+        card.setFootnote("I'm the footer!");
+    	cards.add(card.toView());
+    	
+    	card = new Card(this);
+    	card.setText("This card has a footer.");
+        card.setFootnote("I'm the footer 2!");
+    	cards.add(card.toView());
+    	
+    	card = new Card(this);
+    	card.setText("This card has a footer.");
+        card.setFootnote("I'm the footer 3!");
+    	cards.add(card.toView());
+    	
+    	return cards;
+    }
+    
+}

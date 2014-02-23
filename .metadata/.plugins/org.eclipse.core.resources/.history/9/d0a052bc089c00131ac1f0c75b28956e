@@ -1,0 +1,30 @@
+package bcn.glassteam.ecoglass;
+
+import java.util.ArrayList;
+
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
+import android.view.View;
+import android.widget.FrameLayout;
+import bcn.glassteam.ecoglass.adapters.MainTimelineAdapter;
+import bcn.glassteam.ecoglass.fragments.ARFragment;
+
+import com.beyondar.android.fragment.BeyondarFragmentSupport;
+import com.beyondar.android.world.GeoObject;
+import com.beyondar.android.world.World;
+import com.google.android.glass.app.Card;
+import com.google.android.glass.widget.CardScrollView;
+
+public class MainActivity extends FragmentActivity {
+	
+	private BeyondarFragmentSupport mBeyondarFragment;
+	private World mWorld;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+}
