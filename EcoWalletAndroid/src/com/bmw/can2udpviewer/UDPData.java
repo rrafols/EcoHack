@@ -1,10 +1,11 @@
 package com.bmw.can2udpviewer;
 
 
+import org.apache.commons.lang.mutable.MutableShort;
+
 import unsigned.uByte;
 import unsigned.uInt;
 import unsigned.uShort;
-import org.apache.commons.lang.mutable.MutableShort;
 
 public class UDPData {
     uInt Magic;
