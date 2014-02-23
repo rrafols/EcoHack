@@ -24,6 +24,8 @@ import com.hacktheride.ecowallet.R;
 public class PaymentActivity extends Activity {
 
 	private Activity mActivity;
+	private int mBalance;
+	private EditText mAmountEditText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,53 +35,59 @@ public class PaymentActivity extends Activity {
 		mActivity = this;
 
 		TextView balance = (TextView) findViewById(R.id.textViewCurrentBalance);
-		final EditText amount = (EditText) findViewById(R.id.amount2pay);
+		mAmountEditText = (EditText) findViewById(R.id.amount2pay);
 
-		balance.setText(Integer.toString(getIntent().getExtras().getInt(
-				"Balance")));
+		mBalance = getIntent().getExtras().getInt("Balance");
+		balance.setText(String.valueOf(mBalance));
 
 		Button botonpago = (Button) findViewById(R.id.confirmaPago);
 		botonpago.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-		
-				LinearLayout l = (LinearLayout) mActivity
-						.findViewById(R.id.LayoutPaymentActivity);
-				l.setVisibility(View.INVISIBLE);
-				imm.hideSoftInputFromWindow(l.getWindowToken(), 0);
-				PopupWindow pwindo;
-				Bitmap bmp = BitmapFactory.decodeResource(getResources(),
-						R.drawable.qr);
-				// Para que se pueda cerrar el popup, se pone la imagen
-				// de fondo del framelayout
-				LayoutInflater inflater = (LayoutInflater) mActivity
-						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				View layout = inflater.inflate(R.layout.qr_layout, null);
-
-				pwindo = new PopupWindow(layout, bmp.getWidth(), bmp
-						.getHeight(), true);
-
-				pwindo.setBackgroundDrawable(new BitmapDrawable(mActivity
-						.getResources(), bmp));
-
-				final TextView fondoQr = (TextView) mActivity
-						.findViewById(R.id.FondoQr);
-				fondoQr.setVisibility(View.VISIBLE);
-				pwindo.showAtLocation(layout, Gravity.CENTER, 0, 0);
-				pwindo.setOnDismissListener(new OnDismissListener() {
-
-					@Override
-					public void onDismiss() {
-						fondoQr.setVisibility(View.GONE);
-						Intent returnIntent = new Intent();
-						returnIntent.putExtra("result",
-								Integer.parseInt(amount.getText().toString()));
-						setResult(RESULT_OK, returnIntent);
-						mActivity.finish();
-					}
-				});
+				final String amountStr = mAmountEditText.getText().toString();
+				
+				if (amountStr.isEmpty() || Integer.parseInt(amountStr) > mBalance) {
+					// Nope
+				} else {
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+	
+					LinearLayout l = (LinearLayout) mActivity
+							.findViewById(R.id.LayoutPaymentActivity);
+					l.setVisibility(View.INVISIBLE);
+					imm.hideSoftInputFromWindow(l.getWindowToken(), 0);
+					PopupWindow pwindo;
+					Bitmap bmp = BitmapFactory.decodeResource(getResources(),
+							R.drawable.qr);
+					// Para que se pueda cerrar el popup, se pone la imagen
+					// de fondo del framelayout
+					LayoutInflater inflater = (LayoutInflater) mActivity
+							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+					View layout = inflater.inflate(R.layout.qr_layout, null);
+	
+					pwindo = new PopupWindow(layout, bmp.getWidth(), bmp
+							.getHeight(), true);
+	
+					pwindo.setBackgroundDrawable(new BitmapDrawable(mActivity
+							.getResources(), bmp));
+	
+					final TextView fondoQr = (TextView) mActivity
+							.findViewById(R.id.FondoQr);
+					fondoQr.setVisibility(View.VISIBLE);
+					pwindo.showAtLocation(layout, Gravity.CENTER, 0, 0);
+					pwindo.setOnDismissListener(new OnDismissListener() {
+	
+						@Override
+						public void onDismiss() {
+							fondoQr.setVisibility(View.GONE);
+							Intent returnIntent = new Intent();
+							returnIntent.putExtra("result",
+									Integer.parseInt(amountStr));
+							setResult(RESULT_OK, returnIntent);
+							mActivity.finish();
+						}
+					});
+				}
 			}
 		});
 	}
