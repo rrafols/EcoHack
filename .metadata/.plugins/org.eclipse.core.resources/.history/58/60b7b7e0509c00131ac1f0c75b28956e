@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">EcoWallet</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="pin">Please, introduce your PIN code</string>
+    <string name="wallet">EcoWallet</string>
+    <string name="title_activity_login">Login</string>
+	<string name="ecopoint_balance">Your EcoPoints balance</string>
+	<string name="lastride">Last Ride Balance</string>
+	<string name="ecopay">Make an EcoPayment</string>
+</resources>
