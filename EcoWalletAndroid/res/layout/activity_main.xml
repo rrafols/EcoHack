@@ -38,32 +38,32 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/ecopoint_balance"
 	        android:layout_marginBottom="16dp"
-	        android:textSize="40sp"
+	        android:textSize="30sp"
 			android:textColor="#5BA10C" />
 		
 	    <LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 			android:layout_marginBottom="16dp">
+
 	        <TextView
 	            android:id="@+id/currentBalance"
-	            android:layout_weight="4"
 	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
 	            android:layout_gravity="center_horizontal"
+	            android:layout_weight="6"
 	            android:text="101"
-	            android:textSize="60sp"
-				android:textColor="#9BE13C"
-	            />
+	            android:textColor="#9BE13C"
+	            android:textSize="60sp" />
 	
 	        <ImageButton
 	            android:layout_weight="1"
 	            android:id="@+id/historicButton"
 	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
+	            android:layout_height="50dp"
 	            android:layout_marginRight="16dp"
 	            android:layout_gravity="center_horizontal|center_vertical"
-	            android:background="#40CCCCCC"
+	            android:background="#dddddd"
 	            android:src="@drawable/ic_action_time"/>
 	    </LinearLayout>
 	

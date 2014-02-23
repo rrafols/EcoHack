@@ -7,7 +7,7 @@
     <string name="pin">Please, introduce your PIN code</string>
     <string name="wallet">EcoWallet</string>
     <string name="title_activity_login">Login</string>
-	<string name="ecopoint_balance">EcoPoints Balance</string>
+	<string name="ecopoint_balance">Your EcoPoints balance</string>
 	<string name="lastride">Last Ride Balance</string>
 	<string name="ecopay">Make an EcoPayment</string>
 </resources>

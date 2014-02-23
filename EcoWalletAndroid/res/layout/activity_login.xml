@@ -3,32 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <!--
-    <LinearLayout
-        android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
-		android:orientation="horizontal"
-		android:layout_margin="15dp">
-		
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-	        android:scaleType="fitStart"
-	        android:src="@drawable/leaf"/>
-        
-	    <TextView
-	        android:layout_weight="4"
-	        android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:text="@string/wallet"
-		    android:textSize="60sp"
-		    android:textColor="#7BC11C"
-		    android:gravity="center_horizontal"/>    
-    </LinearLayout>
-    -->
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,10 +36,12 @@
 
         <EditText
             android:id="@+id/editText2"
-            android:layout_width="match_parent"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_gravity="center_horizontal"
             android:ems="10"
+            android:textSize="40sp"
             android:inputType="numberPassword" />
     </LinearLayout>
 
