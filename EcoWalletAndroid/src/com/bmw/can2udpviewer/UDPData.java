@@ -9,7 +9,6 @@ import unsigned.uShort;
 
 public class UDPData {
     uInt Magic;
-    
     uByte Version;
     uByte  Alive;
     uByte  VehicleType;
