@@ -82,11 +82,22 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 			public void onClick(View v) {
 				Intent intent = new Intent(mThisActivity, PaymentActivity.class);
 				intent.putExtra("Balance", realEcoPoints);
-				mThisActivity.startActivity(intent);
+				mThisActivity.startActivityForResult(intent, 1);
 			}
 		});
 	}
 	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		  if (requestCode == 1) {
+
+		     if(resultCode == RESULT_OK){      
+		         int result = data.getIntExtra("result", 0);
+		         TextView balance = (TextView) mThisActivity.findViewById(R.id.currentBalance);
+		         realEcoPoints = Integer.parseInt(balance.getText().toString()) - result;
+		     }
+		  }
+	}
 	@Override
 	protected void onResume() {
 		super.onResume();
