@@ -70,6 +70,19 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 				mThisActivity.startActivity(intent);
 			}
 		});
+		
+		// Payment button listener
+		Button payment = (Button) findViewById(R.id.botonPago);
+		payment.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mThisActivity, PaymentActivity.class);
+				TextView balance = (TextView) mThisActivity.findViewById(R.id.currentBalance);
+				intent.putExtra("Balance", Integer.parseInt(balance.getText().toString()));
+				mThisActivity.startActivity(intent);
+			}
+		});
 	}
 
 	public void setEcoPointsChangeListener(EcoPointsChangeListener listener) {
@@ -176,7 +189,7 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 		mHistoricEcoPointsValues.add(Integer.valueOf(sessionTotal));
 
 		// UI global ecoPoints score
-		TextView totalEcopints = (TextView) findViewById(R.id.totalPoints);
+		TextView totalEcopints = (TextView) findViewById(R.id.currentBalance);
 		int lastTotalScore = Integer.parseInt((String) totalEcopints.getText());
 		totalEcopints.setText(Integer.toString(lastTotalScore + sessionTotal));
 

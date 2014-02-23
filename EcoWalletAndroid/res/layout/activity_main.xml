@@ -22,11 +22,11 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/totalPoints"
+            android:id="@+id/currentBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="XXXX"
+            android:text="0101"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/holo_green_light" />
 
@@ -49,7 +49,7 @@
         android:id="@+id/lastRidePunctuations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="XXXX"
+        android:text="0000"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
