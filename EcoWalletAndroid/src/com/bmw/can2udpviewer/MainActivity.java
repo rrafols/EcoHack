@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,8 +12,7 @@ import android.widget.TextView;
 
 import com.hacktheride.ecowallet.R;
 
-public class MainActivity extends Activity implements EventCallbackUDP,
-		EcoPointsChangeListener {
+public class MainActivity extends Activity implements EventCallbackUDP, EcoPointsChangeListener {
 	public static final String TAG = "HackTheRide";
 
 	private static final int CHARGING_CONDITION_CHARGING = 1;
@@ -86,6 +84,7 @@ public class MainActivity extends Activity implements EventCallbackUDP,
 
 	@Override
 	public void EventReceivedUDP(UDPData udpData) {
+		/*
 		double energyRechargeFactor = 0.00015259;
 		double energyDischargeFactor = 0.00015259;
 		double consumptionWeight = 0.5;
@@ -123,25 +122,26 @@ public class MainActivity extends Activity implements EventCallbackUDP,
 		double ecoPointsF = (consumptionWeight * dischargePoints + rechargeWeight
 				* rechargePoints) / 2.0;
 		long ecoPointsR = Math.round(ecoPointsF);
-		Log.i(TAG, "EcoPoints: " + discharge + " (" + dischargePoints + "), "
-				+ recharge + " (" + rechargePoints + ") " + ecoPointsF + "("
-				+ ecoPointsR + ") vs " + udpData.ECOPoints.getValue());
-
-		int ecoPoints = udpData.ECOPoints.getValue();
-		if (ecoPoints != lastEcoPoints) {
-			int delta = ecoPoints - ecoPoints;
-			accEcoPoints += delta;
-
-			if (ecoPointsListener != null) {
-				ecoPointsListener.ecoPointsChange(delta);
+		Log.i(TAG, "EcoPoints: " + discharge + " (" + dischargePoints + "), " + recharge + " (" + rechargePoints + ") " + ecoPointsF + "(" + ecoPointsR + ") vs " + udpData.ECOPoints.getValue());
+		*/
+		
+		if(sessionStarted) {
+			int ecoPoints = udpData.ECOPoints.getValue();
+			if(ecoPoints != lastEcoPoints) {
+				int delta = ecoPoints - ecoPoints;
+				accEcoPoints += delta;
+				
+				if(ecoPointsListener != null) {
+					ecoPointsListener.ecoPointsChange(delta);
+				}
 			}
-		}
-		
-		int chargingCondition = udpData.ChargingCondition.getValue();
-		
-		// if we're charging the bike and session has been started, we stop the session
-		if(chargingCondition == CHARGING_CONDITION_CHARGING && sessionStarted) {
-			sessionStopped();
+			
+			int chargingCondition = udpData.ChargingCondition.getValue();
+			
+			// if we're charging the bike and session has been started, we stop the session
+			if(chargingCondition == CHARGING_CONDITION_CHARGING) {
+				stopSession();
+			}
 		}
 	}
 	
