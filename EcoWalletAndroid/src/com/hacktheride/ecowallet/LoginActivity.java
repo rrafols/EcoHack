@@ -36,6 +36,14 @@ public class LoginActivity extends Activity {
 		});
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		TextView pin = (TextView) findViewById(R.id.editText2);
+		pin.setText("");
+	}
+	
 	private void loginOk() {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
