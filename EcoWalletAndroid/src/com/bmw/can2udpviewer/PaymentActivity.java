@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -42,9 +43,12 @@ public class PaymentActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		
 				LinearLayout l = (LinearLayout) mActivity
 						.findViewById(R.id.LayoutPaymentActivity);
 				l.setVisibility(View.INVISIBLE);
+				imm.hideSoftInputFromWindow(l.getWindowToken(), 0);
 				PopupWindow pwindo;
 				Bitmap bmp = BitmapFactory.decodeResource(getResources(),
 						R.drawable.qr);
