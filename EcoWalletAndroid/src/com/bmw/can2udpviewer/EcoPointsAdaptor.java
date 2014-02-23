@@ -42,13 +42,17 @@ public class EcoPointsAdaptor extends ArrayAdapter<PointsTransaction> {
 		} else {
 			holder = (ViewHolder) item.getTag();
 		}
-		holder.tvAmount.setText(Integer.toString(mTransactionList.get(position).getAmount()));
+		if(mTransactionList.get(position).getAmount() > 0)
+			holder.tvAmount.setText("+" + Integer.toString(mTransactionList.get(position).getAmount()));
+		else
+			holder.tvAmount.setText(Integer.toString(mTransactionList.get(position).getAmount()));
+		
 		if(mTransactionList.get(position).getAmount() > 0){
 			holder.tvAmount.setTextColor(mAppContext.getResources().getColor(android.R.color.holo_green_light));
 		}else if(mTransactionList.get(position).getAmount() < 0){
 			holder.tvAmount.setTextColor(mAppContext.getResources().getColor(android.R.color.holo_red_light));
 		}else{
-			holder.tvAmount.setTextColor(mAppContext.getResources().getColor(android.R.color.black));
+			holder.tvAmount.setTextColor(mAppContext.getResources().getColor(android.R.color.holo_orange_light));
 		}
 		holder.tvOrigin.setText(mTransactionList.get(position).getShop());
 		holder.tvDate.setText(mTransactionList.get(position).getDate());

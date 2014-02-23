@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 		mHistoricEcoPointsOrigins.add("Moto");
 		mHistoricEcoPointsValues.add(Integer.valueOf(-2));
 		mHistoricEcoPointsDates.add("02/12/2014 17:43");
-		mHistoricEcoPointsOrigins.add("Moto2");
+		mHistoricEcoPointsOrigins.add("Shop");
 		mHistoricEcoPointsValues.add(Integer.valueOf(3));
 		mHistoricEcoPointsDates.add("02/13/2014 09:03");
 		mHistoricEcoPointsOrigins.add("Moto3");
@@ -57,6 +57,18 @@ public class MainActivity extends Activity implements EventCallbackUDP, EcoPoint
 		mHistoricEcoPointsValues.add(Integer.valueOf(1));
 		mHistoricEcoPointsDates.add("02/14/2014 15:00");
 		mHistoricEcoPointsOrigins.add("Moto5");
+		mHistoricEcoPointsValues.add(Integer.valueOf(-3));
+		mHistoricEcoPointsDates.add("02/15/2014 17:04");
+		mHistoricEcoPointsOrigins.add("Shop2");
+		mHistoricEcoPointsValues.add(Integer.valueOf(1));
+		mHistoricEcoPointsDates.add("02/17/2014 13:34");
+		mHistoricEcoPointsOrigins.add("Moto2");
+		mHistoricEcoPointsValues.add(Integer.valueOf(-1));
+		mHistoricEcoPointsDates.add("02/18/2014 10:31");
+		mHistoricEcoPointsOrigins.add("Shop3");
+		mHistoricEcoPointsValues.add(Integer.valueOf(1));
+		mHistoricEcoPointsDates.add("02/18/2014 20:22");
+		mHistoricEcoPointsOrigins.add("Moto1");
 
 		mThisActivity = this;
 		
